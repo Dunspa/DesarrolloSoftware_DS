@@ -1,21 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carrerasbicicletas;
 
-/**
- *
- * @author sergio
- */
+import java.util.Random;
+import java.util.ArrayList;
+
 public class CarrerasBicicletas {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        System.out.print ("Hola");
+        // Número de bicicletas que participarán a la vez en la carrera
+        Random rand = new Random();
+        int num_bicicletas = rand.nextInt(50);  // Máximo 50 participantes [0-49]
+        
+        // Tipo de carrera = 0 (Montaña) y 1 (Carretera)
+        int tipo_carrera = rand.nextInt(2);
+        
+        // Crear factoría de carreras y bicicletas
+        FactoriaCarreraYBicicleta factoria = null;
+        int retirados = 0;
+        // De montaña
+        if (tipo_carrera == 0){
+            factoria = new FactoriaMontaña();
+            retirados = (num_bicicletas * 20) / 100;
+        }
+        // De carretera
+        else if (tipo_carrera == 1){
+            factoria = new FactoriaCarretera();
+            retirados = (num_bicicletas * 10) / 100;
+        }
+        
+        if (factoria != null){
+            // Inicializar carrera
+            Carrera carrera = factoria.crearCarrera(num_bicicletas);
+            
+            // Inicializar bicicletas (hebras)
+            ArrayList<Bicicleta> bicicletas = new ArrayList<Bicicleta>();
+            bicicletas = carrera.getBicicletas();
+            for (int i = 0 ; i < num_bicicletas ; i++){
+                bicicletas.get(i).run();
+            }
+        }
+        
+        System.out.println("Fin de la carrera.");
     }
     
 }

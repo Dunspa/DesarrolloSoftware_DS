@@ -1,23 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carrerasbicicletas;
 
-/**
- *
- * @author sergio
- */
-public class FactoriaCarretera extends FactoriaCarreraYBicicleta{
+import java.util.ArrayList;
+
+public class FactoriaCarretera extends FactoriaCarreraYBicicleta{    
     @Override
-    public Carrera crearCarrera(){
-        CarreraCarretera carrera = new CarreraCarretera();
+    public Carrera crearCarrera(int numBicicletas){
+        ArrayList<Bicicleta> bicicletas = new ArrayList<Bicicleta>();
+        for (int i = 0 ; i < numBicicletas ; i++){
+            bicicletas.add(crearBicicleta(i));
+        }
+        
+        CarreraCarretera carrera = new CarreraCarretera(bicicletas, numBicicletas);
         return carrera;
     }
     @Override
-    public Bicicleta crearBicicleta(){
-        BicicletaCarretera bicicleta = new BicicletaCarretera();
+    public Bicicleta crearBicicleta(int id){
+        BicicletaCarretera bicicleta = new BicicletaCarretera(id);
         return bicicleta;
     }
 }

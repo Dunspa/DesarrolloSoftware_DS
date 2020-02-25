@@ -1,21 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carrerasbicicletas;
 
-/**
- *
- * @author sergio
- */
+import java.util.Random;
+
 public abstract class Bicicleta extends Thread{
-    Bicicleta(int num){
-        
-    }
     public int id;
+    
     @Override
     public void run(){
+        // Lanzar hebra
+        start();
+        System.out.println("Bicicleta " + this.id + " EMPIEZA la carrera.");
         
+        // La hebra duerme (se realiza la carrera que dura 60 segundos)
+        try {
+            sleep(60000);
+        } 
+        catch(InterruptedException e){
+            System.out.println("Error en el sleep de la hebra: " + e);
+        }
+        
+        // La hebra finaliza
+        System.out.println("Bicicleta " + this.id + "TERMINA la carrera.");
     }
 }

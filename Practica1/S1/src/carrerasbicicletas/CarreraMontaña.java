@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carrerasbicicletas;
 
-/**
- *
- * @author sergio
- */
+import java.util.ArrayList;
+
 public class CarreraMontaña extends Carrera{
-    
+    CarreraMontaña(ArrayList<Bicicleta> bicicletas, int numBicicletas){
+        this.numBicicletas = numBicicletas;
+        this.bicicletas = bicicletas;
+    }
 }

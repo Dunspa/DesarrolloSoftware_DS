@@ -1,15 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package carrerasbicicletas;
 
-/**
- *
- * @author sergio
- */
+import java.util.ArrayList;
+
 public abstract class FactoriaCarreraYBicicleta {
-    public abstract Carrera crearCarrera();
-    public abstract Bicicleta crearBicicleta();
+    public abstract Carrera crearCarrera(int numBicicletas);
+    public abstract Bicicleta crearBicicleta(int id);
 }
