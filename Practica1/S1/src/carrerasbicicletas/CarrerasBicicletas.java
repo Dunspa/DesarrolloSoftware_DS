@@ -35,11 +35,8 @@ public class CarrerasBicicletas {
             ArrayList<Bicicleta> bicicletas = new ArrayList<Bicicleta>();
             bicicletas = carrera.getBicicletas();
             for (int i = 0 ; i < num_bicicletas ; i++){
-                bicicletas.get(i).run();
+                bicicletas.get(i).start();
             }
         }
-        
-        System.out.println("Fin de la carrera.");
     }
-    
 }
