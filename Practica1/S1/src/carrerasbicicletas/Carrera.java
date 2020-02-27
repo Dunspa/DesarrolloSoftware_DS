@@ -8,4 +8,6 @@ public abstract class Carrera {
     public ArrayList<Bicicleta> getBicicletas(){
         return bicicletas;
     }
+    
+    public abstract void iniciarCarrera();
 }

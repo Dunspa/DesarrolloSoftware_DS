@@ -27,8 +27,10 @@ public abstract class Bicicleta extends Thread{
             System.out.println("Error en el sleep de la hebra: " + e);
         }
         
-        // La hebra finaliza
-        System.out.println("Bicicleta " + this.id + " TERMINA la carrera.");
+        if (!retirada){
+            // La hebra finaliza
+            System.out.println("Bicicleta " + this.id + " TERMINA la carrera.");
+        }
     }
 
     public static void settRetiro(int tRetiro) {
