@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class CarreraMontaña extends Carrera{
-    CarreraMontaña(ArrayList<Bicicleta> bicicletas, int numBicicletas){
+    CarreraMontaña(ArrayList<Bicicleta> bicicletas){
         // Número de bicicletas que participarán a la vez en la carrera
-        this.numBicicletas = numBicicletas;
+        this.numBicicletas = bicicletas.size();
         this.bicicletas = bicicletas;
     }
     

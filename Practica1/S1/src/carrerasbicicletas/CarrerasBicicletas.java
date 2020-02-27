@@ -24,7 +24,7 @@ public class CarrerasBicicletas {
         
         if (factoria != null){
             // Inicializar carrera
-            Carrera carrera = factoria.crearCarrera();
+            Carrera carrera = factoria.crearCarrera(factoria);
             carrera.iniciarCarrera();
         }
     }
