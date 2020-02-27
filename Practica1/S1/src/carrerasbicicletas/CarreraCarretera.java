@@ -11,19 +11,11 @@ public class CarreraCarretera extends Carrera{
     }
     
     @Override
-    public void iniciarCarrera(){
-        // Poner tiempo de retiro
-        Random rand = new Random();
-        Bicicleta.settRetiro(rand.nextInt(59999));  
-        
-        // Inicializar bicicletas (hebras)
+    public void iniciarCarrera(){  
+        // Número de bicicletas que se retiran a mitad
         int retirados = (numBicicletas * 10) / 100;
-        for (int i = 0 ; i < numBicicletas ; i++){
-            bicicletas.get(i).start();
-            
-            if (i < retirados){
-                bicicletas.get(i).setRetirada(true);
-            }
-        }
+        
+        // Iniciar hebras
+        super.iniciarHebras(retirados);
     }
 }
