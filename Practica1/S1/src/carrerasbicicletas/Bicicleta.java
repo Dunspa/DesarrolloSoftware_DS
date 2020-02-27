@@ -4,6 +4,8 @@ import java.util.Random;
 
 public abstract class Bicicleta extends Thread{
     public int id;
+    public boolean retirada = false;
+    private static int tRetiro;
     
     @Override
     public void run(){
@@ -12,7 +14,14 @@ public abstract class Bicicleta extends Thread{
         
         // La hebra duerme (se realiza la carrera que dura 60 segundos)
         try {
-            Thread.sleep(60000);
+            Thread.sleep(tRetiro);
+            
+            if(retirada){
+                System.out.println("Bicicleta " + this.id + " se RETIRA.");
+            }
+            else{
+                Thread.sleep(60000-tRetiro);
+            }
         } 
         catch(InterruptedException e){
             System.out.println("Error en el sleep de la hebra: " + e);
@@ -21,4 +30,13 @@ public abstract class Bicicleta extends Thread{
         // La hebra finaliza
         System.out.println("Bicicleta " + this.id + " TERMINA la carrera.");
     }
+
+    public static void settRetiro(int tRetiro) {
+        Bicicleta.tRetiro = tRetiro;
+    }
+
+    public void setRetirada(boolean retirada) {
+        this.retirada = retirada;
+    }
+    
 }

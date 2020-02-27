@@ -13,6 +13,8 @@ public class CarrerasBicicletas {
         // Tipo de carrera = 0 (Montaña) y 1 (Carretera)
         int tipo_carrera = rand.nextInt(2);
         
+        Bicicleta.settRetiro(rand.nextInt(59999));
+        
         // Crear factoría de carreras y bicicletas
         FactoriaCarreraYBicicleta factoria = null;
         int retirados = 0;
@@ -36,6 +38,9 @@ public class CarrerasBicicletas {
             bicicletas = carrera.getBicicletas();
             for (int i = 0 ; i < num_bicicletas ; i++){
                 bicicletas.get(i).start();
+                if(i<=retirados){
+                    bicicletas.get(i).setRetirada(true);
+                }
             }
         }
     }
