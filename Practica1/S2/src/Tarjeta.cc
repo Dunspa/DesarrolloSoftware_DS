@@ -1,0 +1,2 @@
+#include "componentEquipo.h"
+
