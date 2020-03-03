@@ -3,9 +3,15 @@
 #define	COMPONENTEEQUIPO_H_INCLUDED
 
 #include "visitanteEquipo.h"
+#include <string>
 
 class componenteEquipo {
-   virtual void aceptar(visitanteEquipo v);
+private:
+  double precio;
+  string nombre;
+
+public:
+  virtual void aceptar(visitanteEquipo v);
 };
 
 #endif
