@@ -4,14 +4,18 @@
 
 #include "visitanteEquipo.h"
 #include <string>
+using namespace std;
 
 class componenteEquipo {
 private:
-  double precio;
+  int coste;
   string nombre;
 
 public:
-  virtual void aceptar(visitanteEquipo v);
+   componenteEquipo(int c, string n);
+   virtual void aceptar(visitanteEquipo v);
+   int getCoste();
+   string getNombre();
 };
 
 #endif

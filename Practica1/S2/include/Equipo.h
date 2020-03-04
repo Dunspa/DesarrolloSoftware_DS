@@ -6,8 +6,12 @@
 
 class Equipo {
 private:
-  vector<componenteEquipo> componentes;
+  Disco * disco;
+  Tarjeta * tarjeta;
+  Bus * bus;
 
+public:
+   Equipo();
 };
 
 #endif

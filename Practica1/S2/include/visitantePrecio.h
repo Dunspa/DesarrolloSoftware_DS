@@ -4,9 +4,14 @@
 #include "visitanteEquipo.h"
 
 class VisitantePrecio : visitanteEquipo {
+private:
+   int costeNeto = 0;
+
+public:
    void visitarDisco(Disco d);
    void visitarBus(Bus b);
    void visitarTarjeta(Tarjeta t);
+   int getCosteNeto();
 };
 
 #endif
