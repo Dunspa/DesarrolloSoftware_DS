@@ -1,40 +1,16 @@
 #include "visitantePrecioDet.h"
+#include <iostream>
+
+using namespace std;
 
 void visitantePrecioDet::visitarDisco(Disco d){
-   nombreDisco = d.getNombre();
-   costeDisco = d.getCoste();
+   cout << " -Coste de " << d.getNombre() << " : " << d.getCoste() << endl;
 }
 
 void visitantePrecioDet::visitarBus(Bus b){
-   nombreBus = b.getNombre();
-   costeBus = b.getCoste();
+   cout << " -Coste de " << b.getNombre() << " : " << b.getCoste() << endl
 }
 
 void visitantePrecioDet::visitarTarjeta(Tarjeta t){
-   nombreTarjeta = t.getNombre();
-   costeTarjeta = t.getCoste();
-}
-
-string visitantePrecioDet::getNombreDisco(){
-   return nombreDisco;
-}
-
-string visitantePrecioDet::getNombreBus(){
-   return nombreBus;
-}
-
-string visitantePrecioDet::getNombreTarjeta(){
-   return nombreTarjeta;
-}
-
-int visitantePrecioDet::getCosteDisco(){
-   return costeDisco;
-}
-
-int visitantePrecioDet::getCosteBus(){
-   return costeBus;
-}
-
-int visitantePrecioDet::getCosteTarjeta(){
-   return costeTarjeta;
+  cout << " -Coste de " << t.getNombre() << " : " << t.getCoste() << endl;
 }

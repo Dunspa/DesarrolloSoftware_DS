@@ -4,7 +4,7 @@
 #include "componenteEquipo.h"
 #include "visitanteEquipo.h"
 
-class Bus : componenteEquipo {
+class Bus : public componenteEquipo {
    void aceptar(visitanteEquipo v);
 };
 

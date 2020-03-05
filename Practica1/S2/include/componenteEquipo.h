@@ -13,7 +13,7 @@ private:
 
 public:
    componenteEquipo(int c, string n);
-   virtual void aceptar(visitanteEquipo v);
+   virtual void aceptar(visitanteEquipo v){}
    int getCoste();
    string getNombre();
 };

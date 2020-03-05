@@ -3,7 +3,7 @@
 
 #include "visitanteEquipo.h"
 
-class VisitantePrecio : visitanteEquipo {
+class VisitantePrecio : public visitanteEquipo {
 private:
    int costeNeto = 0;
 

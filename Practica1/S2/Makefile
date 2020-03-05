@@ -12,32 +12,32 @@ clean
 $(BIN)/calculaprecios: $(OBJ)/calculaprecios.o $(OBJ)/equipo.o $(OBJ)/visitanteprecio.o $(OBJ)/visitantepreciodet.o $(OBJ)/bus.o $(OBJ)/disco.o $(OBJ)/tarjeta.o $(OBJ)/visitanteequipo.o $(OBJ)/componenteequipo.o
 	$(CXX) -o $(BIN)/calculaprecios $(OBJ)/calculaprecios.o $(OBJ)/equipo.o $(OBJ)/visitanteprecio.o $(OBJ)/visitantepreciodet.o $(OBJ)/bus.o $(OBJ)/disco.o $(OBJ)/tarjeta.o $(OBJ)/visitanteequipo.o $(OBJ)/componenteequipo.o
 
-$(OBJ)/calculaprecios.o: $(SRC)/CalculaPrecios.cpp
-	$(CXX) -o $(OBJ)/calculaprecios.o $(SRC)/CalculaPrecios.cpp
+$(OBJ)/calculaprecios.o: $(SRC)/CalculaPrecios.cc
+	$(CXX) -c -o $(OBJ)/calculaprecios.o $(SRC)/CalculaPrecios.cc -I$(INC) -std=c++11
 
-$(OBJ)/equipo.o: $(SRC)/Equipo.cpp
-	$(CXX) -o $(OBJ)/equipo.o $(SRC)/Equipo.cpp
+$(OBJ)/componenteequipo.o: $(SRC)/ComponenteEquipo.cc $(INC)/ComponenteEquipo.h
+	$(CXX) -c -o $(OBJ)/componenteequipo.o $(SRC)/ComponenteEquipo.cc -I$(INC) -std=c++11
 
-$(OBJ)/bus.o: $(SRC)/Bus.cpp
-	$(CXX) -o $(OBJ)/bus.o $(SRC)/Bus.cpp
+$(OBJ)/bus.o: $(SRC)/Bus.cc $(INC)/Bus.h
+	$(CXX) -c -o $(OBJ)/bus.o $(SRC)/Bus.cc -I$(INC) -std=c++11
 
-$(OBJ)/disco.o: $(SRC)/Disco.cpp
-	$(CXX) -o $(OBJ)/disco.o $(SRC)/Disco.cpp
+$(OBJ)/tarjeta.o: $(SRC)/Tarjeta.cc
+	$(CXX) -c -o $(OBJ)/tarjeta.o $(SRC)/Tarjeta.cc -I$(INC) -std=c++11
 
-$(OBJ)/tarjeta.o: $(SRC)/Tarjeta.cpp
-	$(CXX) -o $(OBJ)/tarjeta.o $(SRC)/Tarjeta.cpp
+$(OBJ)/Disco.o: $(SRC)/Disco.cc $(INC)/Disco.h
+	$(CXX) -c -o $(OBJ)/Disco.o $(SRC)/Disco.cc -I$(INC) -std=c++11
 
-$(OBJ)/componenteequipo.o: $(SRC)/componenteEquipo.cpp
-	$(CXX) -o $(OBJ)/componenteequipo.o $(SRC)/componenteEquipo.cpp
+$(OBJ)/visitanteequipo.o: $(SRC)/visitanteEquipo.cc $(INC)/visitanteEquipo.h
+	$(CXX) -c -o $(OBJ)/visitanteequipo.o $(SRC)/visitanteEquipo.cc -I$(INC) -std=c++11
 
-$(OBJ)/visitanteequipo.o: $(SRC)/visitanteEquipo.cpp
-	$(CXX) -o $(OBJ)/visitanteequipo.o $(SRC)/visitanteEquipo.cpp
+$(OBJ)/visitanteprecio.o: $(SRC)/visitantePrecio.cc $(INC)/visitantePrecio.h
+	$(CXX) -c -o $(OBJ)/visitanteprecio.o $(SRC)/visitantePrecio.cc -I$(INC) -std=c++11
 
-$(OBJ)/visitanteprecio.o: $(SRC)/visitantePrecio.cpp
-	$(CXX) -o $(OBJ)/visitanteprecio.o $(SRC)/visitantePrecio.cpp
+$(OBJ)/visitantepreciodet.o: $(SRC)/visitantePrecioDet.cc $(INC)/visitantePrecioDet.h
+	$(CXX) -c -o $(OBJ)/visitantepreciodet.o $(SRC)/visitantePrecioDet.cc -I$(INC) -std=c++11
 
-$(OBJ)/visitantepreciodet.o: $(SRC)/visitantePrecioDet.cpp
-	$(CXX) -o $(OBJ)/visitantepreciodet.o $(SRC)/visitantePrecioDet.cpp
+$(OBJ)/equipo.o: $(SRC)/Equipo.cc $(INC)/Equipo.h
+	$(CXX) -c -o $(OBJ)/equipo.o $(SRC)/Equipo.cc -I$(INC) -std=c++11
 
 
 # ************ Limpieza ************

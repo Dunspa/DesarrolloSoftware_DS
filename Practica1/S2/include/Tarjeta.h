@@ -4,7 +4,10 @@
 #include "componenteEquipo.h"
 #include "visitanteEquipo.h"
 
-class Tarjeta : componenteEquipo {
+class componenteEquipo;
+class visitanteEquipo;
+
+class Tarjeta : public componenteEquipo {
    void aceptar(visitanteEquipo v);
 };
 

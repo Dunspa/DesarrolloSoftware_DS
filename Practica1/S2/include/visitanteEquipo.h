@@ -5,6 +5,8 @@
 #include "Bus.h"
 #include "Tarjeta.h"
 
+class Bus;
+
 class visitanteEquipo {
 public:
    virtual void visitarDisco(Disco d);
