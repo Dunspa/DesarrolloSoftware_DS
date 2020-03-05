@@ -11,3 +11,9 @@ Equipo(){
    tarjeta = new Tarjeta(c2, "Tarjeta" + to_string(c2));
    bus = new Bus(c3, "Bus" + to_string(c3));
 }
+
+void aceptar(visitanteEquipo v){
+   bus.aceptar(v);
+   tarjeta.aceptar(v);
+   disco.aceptar(v);
+}
