@@ -6,11 +6,17 @@ public class SimuladorMeteorologico {
         Termometro termo = new Termometro();
         pantallaTemperatura pantalla = new pantallaTemperatura(termo);
         termo.addObserver(pantalla);
+        botonCambio boton = new botonCambio(termo);
+        termo.addObserver(boton);
+        graficaTemperatura grafica = new graficaTemperatura(termo);
+        termo.addObserver(grafica);
         
         Thread t = new Thread(termo);
         t.start();
         
         pantalla.setVisible(true);
+        boton.setVisible(true);
+        grafica.setVisible(true);
     }
     
 }

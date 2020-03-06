@@ -20,24 +20,27 @@ public class Termometro extends java.util.Observable implements Runnable{
     public void run() {
         while (true){
             try {
-                sleep(2000);
+                sleep(3000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Termometro.class.getName()).log(Level.SEVERE, null, ex);
             }
-            temperaturaCelsius = new Float(rand.nextFloat());
-            temperaturaFahrenheit = new Float(((temperaturaCelsius.floatValue() / 5) * 9) + 32); 
-            this.setChanged();
-            this.notifyObservers();
+            setTemperatura(rand.nextFloat());
         }
         
     }
 
     public float getTemperaturaCelsius() {
-        return temperaturaCelsius.floatValue();
+        return temperaturaCelsius;
     }
     
     public float getTemperaturaFahrenheit() {
-        return temperaturaFahrenheit.floatValue();
+        return temperaturaFahrenheit;
     }
     
+    public void setTemperatura(Float t) {
+        temperaturaCelsius = t;
+        temperaturaFahrenheit = ((temperaturaCelsius / 5) * 9) + 32; 
+        this.setChanged();
+        this.notifyObservers();
+    }
 }
