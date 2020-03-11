@@ -1,8 +1,8 @@
 #include "Equipo.h"
 #include <stdlib.h>
+#include <ctime>
 
-Equipo(){
-   srand (time(NULL))
+Equipo::Equipo(){
    int c1 = rand() % 100 + 1;
    int c2 = rand() % 100 + 1;
    int c3 = rand() % 100 + 1;
@@ -12,8 +12,8 @@ Equipo(){
    bus = new Bus(c3, "Bus" + to_string(c3));
 }
 
-void aceptar(visitanteEquipo v){
-   bus.aceptar(v);
-   tarjeta.aceptar(v);
-   disco.aceptar(v);
+void Equipo::aceptar(visitanteEquipo * v){
+   bus->aceptar(v);
+   tarjeta->aceptar(v);
+   disco->aceptar(v);
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include <vector>
 #include "Equipo.h"
 #include "visitantePrecio.h"
@@ -7,7 +8,7 @@ using namespace std;
 
 int main(){
    // Crear varios equipos
-   srand (time(NULL));
+   srand (time(0));
    int numEquipos = rand() % 10 + 1;
 
    vector<Equipo> equipos;
@@ -16,14 +17,14 @@ int main(){
    }
 
    // Llamar a visitantePrecio
-   VisitantePrecio v;
+   VisitantePrecio * v = new VisitantePrecio();
    for (int i = 0 ; i < numEquipos ; i++){
       equipos[i].aceptar(v);
-      cout << "Coste neto equipo " << i << ": " << v.getCosteNeto();
+      cout << "Coste neto equipo " << i << ": " << v->getCosteNeto() << endl;
    }
 
    // Llamar a visitantePrecioDet
-   VisitantePrecioDet vdet;
+   VisitantePrecioDet * vdet = new VisitantePrecioDet();
    for (int i = 0 ; i < numEquipos ; i++){
       cout << "Precio detallado equipo " << i << ": " << endl;
       equipos[i].aceptar(vdet);

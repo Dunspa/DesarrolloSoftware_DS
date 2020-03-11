@@ -1,10 +1,10 @@
-
 #ifndef COMPONENTEEQUIPO_H_INCLUDED
 #define	COMPONENTEEQUIPO_H_INCLUDED
 
-#include "visitanteEquipo.h"
 #include <string>
 using namespace std;
+
+class visitanteEquipo;
 
 class componenteEquipo {
 private:
@@ -13,7 +13,7 @@ private:
 
 public:
    componenteEquipo(int c, string n);
-   virtual void aceptar(visitanteEquipo v){}
+   virtual void aceptar(visitanteEquipo * v){}
    int getCoste();
    string getNombre();
 };

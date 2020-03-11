@@ -2,13 +2,11 @@
 #define TARJETA_H_INCLUDED
 
 #include "componenteEquipo.h"
-#include "visitanteEquipo.h"
-
-class componenteEquipo;
-class visitanteEquipo;
 
 class Tarjeta : public componenteEquipo {
-   void aceptar(visitanteEquipo v);
+public:
+   Tarjeta(int c, string n);
+   void aceptar(visitanteEquipo * v);
 };
 
 #endif

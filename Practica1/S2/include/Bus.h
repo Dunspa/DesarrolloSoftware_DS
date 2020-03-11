@@ -2,10 +2,11 @@
 #define BUS_H_INCLUDED
 
 #include "componenteEquipo.h"
-#include "visitanteEquipo.h"
 
 class Bus : public componenteEquipo {
-   void aceptar(visitanteEquipo v);
+public:
+   Bus(int c, string n);
+   void aceptar(visitanteEquipo * v);
 };
 
 #endif

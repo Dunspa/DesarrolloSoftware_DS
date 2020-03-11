@@ -6,9 +6,9 @@
 class VisitantePrecioDet : public visitanteEquipo {
 
 public:
-   void visitarDisco(Disco d);
-   void visitarBus(Bus b);
-   void visitarTarjeta(Tarjeta t);
+   void visitarDisco(Disco * d);
+   void visitarBus(Bus * b);
+   void visitarTarjeta(Tarjeta * t);
 };
 
 #endif

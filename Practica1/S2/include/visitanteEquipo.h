@@ -1,17 +1,15 @@
 #ifndef VISITANTEEQUIPO_H_INCLUDED
-#define	VISITANTEEQUIPO_H_INCLUDED
+#define VISITANTEEQUIPO_H_INCLUDED
 
-#include "Disco.h"
 #include "Bus.h"
 #include "Tarjeta.h"
-
-class Bus;
+#include "Disco.h"
 
 class visitanteEquipo {
 public:
-   virtual void visitarDisco(Disco d);
-   virtual void visitarBus(Bus b);
-   virtual void visitarTarjeta(Tarjeta t);
+   virtual void visitarDisco(Disco * d) = 0;
+   virtual void visitarBus(Bus * b) = 0;
+   virtual void visitarTarjeta(Tarjeta * t) = 0;
 };
 
 #endif

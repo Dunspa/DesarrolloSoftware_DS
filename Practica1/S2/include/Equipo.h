@@ -1,10 +1,8 @@
 #ifndef EQUIPO_H_INCLUDED
 #define EQUIPO_H_INCLUDED
 
-#include "Bus.h"
-#include "Tarjeta.h"
-#include "Disco.h"
 #include <vector>
+#include "visitanteEquipo.h"
 
 class Equipo {
 private:
@@ -14,7 +12,7 @@ private:
 
 public:
    Equipo();
-   void aceptar(visitanteEquipo v);
+   void aceptar(visitanteEquipo * v);
 };
 
 #endif

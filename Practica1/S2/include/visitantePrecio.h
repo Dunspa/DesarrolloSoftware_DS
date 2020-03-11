@@ -8,9 +8,9 @@ private:
    int costeNeto = 0;
 
 public:
-   void visitarDisco(Disco d);
-   void visitarBus(Bus b);
-   void visitarTarjeta(Tarjeta t);
+   void visitarDisco(Disco * d);
+   void visitarBus(Bus * b);
+   void visitarTarjeta(Tarjeta * t);
    int getCosteNeto();
 };
 
