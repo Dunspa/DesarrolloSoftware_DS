@@ -18,13 +18,16 @@ public class Termometro extends java.util.Observable implements Runnable{
 
     @Override
     public void run() {
+        float Tmax = 100;
+        float Tmin = -100;
+        
         while (true){
             try {
                 sleep(3000);
             } catch (InterruptedException ex) {
                 Logger.getLogger(Termometro.class.getName()).log(Level.SEVERE, null, ex);
             }
-            setTemperatura(rand.nextFloat());
+            setTemperatura(rand.nextFloat() * (Tmax - Tmin) + Tmin);
         }
         
     }

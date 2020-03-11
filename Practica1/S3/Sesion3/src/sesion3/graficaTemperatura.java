@@ -12,6 +12,8 @@ public class graficaTemperatura extends javax.swing.JFrame implements Observer{
     public graficaTemperatura(Termometro tem) {
         t = tem;
         initComponents();
+        graficaCelsius.setMaximum(100);
+        graficaFahrenheit.setMaximum(212);
     }
 
     @Override
@@ -20,6 +22,10 @@ public class graficaTemperatura extends javax.swing.JFrame implements Observer{
         Float t2 = t.getTemperaturaFahrenheit();
         graficaCelsius.setValue(Math.round(t1));
         graficaFahrenheit.setValue(Math.round(t2));
+        String nombreTemperatura1 = Float.toString(t.getTemperaturaCelsius());
+        String nombreTemperatura2 = Float.toString(t.getTemperaturaFahrenheit());
+        mostrarcelsius.setText(nombreTemperatura1);
+        mostrarfahrenheit.setText(nombreTemperatura2);
         this.repaint();
         this.revalidate();
     }
@@ -38,6 +44,8 @@ public class graficaTemperatura extends javax.swing.JFrame implements Observer{
         jLabel3 = new javax.swing.JLabel();
         graficaCelsius = new javax.swing.JProgressBar();
         graficaFahrenheit = new javax.swing.JProgressBar();
+        mostrarcelsius = new javax.swing.JLabel();
+        mostrarfahrenheit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,6 +54,10 @@ public class graficaTemperatura extends javax.swing.JFrame implements Observer{
         jLabel2.setText("°C");
 
         jLabel3.setText("°F");
+
+        mostrarcelsius.setText("0");
+
+        mostrarfahrenheit.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -69,6 +81,12 @@ public class graficaTemperatura extends javax.swing.JFrame implements Observer{
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(graficaFahrenheit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(59, 59, 59)
+                .addComponent(mostrarcelsius)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mostrarfahrenheit)
+                .addGap(74, 74, 74))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -83,7 +101,11 @@ public class graficaTemperatura extends javax.swing.JFrame implements Observer{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
-                .addGap(113, 113, 113))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(mostrarcelsius)
+                    .addComponent(mostrarfahrenheit))
+                .addGap(90, 90, 90))
         );
 
         pack();
@@ -129,5 +151,7 @@ public class graficaTemperatura extends javax.swing.JFrame implements Observer{
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel mostrarcelsius;
+    private javax.swing.JLabel mostrarfahrenheit;
     // End of variables declaration//GEN-END:variables
 }

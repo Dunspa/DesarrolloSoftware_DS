@@ -5,7 +5,7 @@ public class SimuladorMeteorologico {
     public static void main(String[] args) {
         Termometro termo = new Termometro();
         pantallaTemperatura pantalla = new pantallaTemperatura(termo);
-        termo.addObserver(pantalla);
+        pantalla.start();
         botonCambio boton = new botonCambio(termo);
         termo.addObserver(boton);
         graficaTemperatura grafica = new graficaTemperatura(termo);

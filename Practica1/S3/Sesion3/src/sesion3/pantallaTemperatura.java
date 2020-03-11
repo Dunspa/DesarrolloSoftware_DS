@@ -1,9 +1,10 @@
 package sesion3;
 
-import java.util.Observable;
-import java.util.Observer;
+import static java.lang.Thread.sleep;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class pantallaTemperatura extends javax.swing.JFrame implements Observer{
+public class pantallaTemperatura extends javax.swing.JFrame {
     Termometro t;
     /**
      * Creates new form pantallaTemperatura
@@ -15,14 +16,27 @@ public class pantallaTemperatura extends javax.swing.JFrame implements Observer{
         CuadroTemperaturaFahrenheit.setText("0.0");
     }
     
-    @Override
-    public void update(Observable o, Object arg) {
-        String nombreTemperatura1 = Float.toString(t.getTemperaturaCelsius());
-        String nombreTemperatura2 = Float.toString(t.getTemperaturaFahrenheit());
-        CuadroTemperaturaCelsius.setText(nombreTemperatura1);
-        CuadroTemperaturaFahrenheit.setText(nombreTemperatura2);
-        this.repaint();
-        this.revalidate();
+    public void start(){
+        Hilo hilo = new Hilo();
+        hilo.start();
+    }
+    
+    public class Hilo extends Thread {
+        @Override
+        public void run(){
+            while (true){
+                try {
+                    sleep(5000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Termometro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                String nombreTemperatura1 = Float.toString(t.getTemperaturaCelsius());
+                String nombreTemperatura2 = Float.toString(t.getTemperaturaFahrenheit());
+                CuadroTemperaturaCelsius.setText(nombreTemperatura1);
+                CuadroTemperaturaFahrenheit.setText(nombreTemperatura2);
+            }
+        }
     }
 
     /**
@@ -35,24 +49,22 @@ public class pantallaTemperatura extends javax.swing.JFrame implements Observer{
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        CuadroTemperaturaCelsius = new javax.swing.JTextField();
-        CuadroTemperaturaFahrenheit = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        CuadroTemperaturaCelsius = new javax.swing.JLabel();
+        CuadroTemperaturaFahrenheit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Temperatura");
 
-        CuadroTemperaturaCelsius.setEditable(false);
-        CuadroTemperaturaCelsius.setText("jTextField1");
-
-        CuadroTemperaturaFahrenheit.setEditable(false);
-        CuadroTemperaturaFahrenheit.setText("jTextField1");
-
         jLabel2.setText("°C");
 
         jLabel3.setText("°F");
+
+        CuadroTemperaturaCelsius.setText("0");
+
+        CuadroTemperaturaFahrenheit.setText("0");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -63,29 +75,29 @@ public class pantallaTemperatura extends javax.swing.JFrame implements Observer{
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(CuadroTemperaturaCelsius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CuadroTemperaturaCelsius)
+                        .addGap(47, 47, 47)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(CuadroTemperaturaFahrenheit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CuadroTemperaturaFahrenheit)
+                        .addGap(47, 47, 47)
                         .addComponent(jLabel3)))
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(32, 32, 32)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CuadroTemperaturaCelsius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(CuadroTemperaturaCelsius))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CuadroTemperaturaFahrenheit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addContainerGap(33, Short.MAX_VALUE))
+                    .addComponent(jLabel3)
+                    .addComponent(CuadroTemperaturaFahrenheit))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,8 +138,8 @@ public class pantallaTemperatura extends javax.swing.JFrame implements Observer{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField CuadroTemperaturaCelsius;
-    private javax.swing.JTextField CuadroTemperaturaFahrenheit;
+    private javax.swing.JLabel CuadroTemperaturaCelsius;
+    private javax.swing.JLabel CuadroTemperaturaFahrenheit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

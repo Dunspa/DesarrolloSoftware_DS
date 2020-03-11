@@ -16,6 +16,8 @@ public class botonCambio extends javax.swing.JFrame implements Observer{
     
     @Override
     public void update(Observable o, Object arg) {
+        Float t1 = t.getTemperaturaCelsius();
+        mostrargrados.setText(Float.toString(t1));
         this.repaint();
         this.revalidate();
     }
@@ -33,6 +35,8 @@ public class botonCambio extends javax.swing.JFrame implements Observer{
         grados = new javax.swing.JTextField();
         boton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        mostrargrados = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +49,10 @@ public class botonCambio extends javax.swing.JFrame implements Observer{
 
         jLabel1.setText("Introduce la temperatura en °C");
 
+        jLabel2.setText("°C");
+
+        mostrargrados.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -52,6 +60,10 @@ public class botonCambio extends javax.swing.JFrame implements Observer{
             .addGroup(layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mostrargrados))
                     .addComponent(jLabel1)
                     .addComponent(grados, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -62,13 +74,17 @@ public class botonCambio extends javax.swing.JFrame implements Observer{
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap(12, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(mostrargrados))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(grados, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(boton)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -117,5 +133,7 @@ public class botonCambio extends javax.swing.JFrame implements Observer{
     private javax.swing.JButton boton;
     private javax.swing.JTextField grados;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel mostrargrados;
     // End of variables declaration//GEN-END:variables
 }
