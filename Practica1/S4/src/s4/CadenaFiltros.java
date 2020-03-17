@@ -17,7 +17,7 @@ public class CadenaFiltros {
     
     void ejecutar(double revoluciones, EstadoMotor estado){
         for (Filtro f : filtros){
-            f.ejecutar(revoluciones,estado);
+            f.ejecutar(revoluciones, estado);
         }
     }
     

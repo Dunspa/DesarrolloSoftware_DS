@@ -23,9 +23,11 @@ public class FiltroCalcularVelocidad implements Filtro{
         else if(estado == EstadoMotor.APAGADO){
             incrementoVelocidad = 0;
         }
-        if(revoluciones+incrementoVelocidad>5000){
+        
+        if(revoluciones+incrementoVelocidad > 5000){
             return(5000);
         }
+        
         return (revoluciones+incrementoVelocidad);
     }
 }

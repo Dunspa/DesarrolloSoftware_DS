@@ -14,13 +14,22 @@ public class GestorFiltros {
 
     public GestorFiltros() {
         filtros = new CadenaFiltros();
+        añadeFiltros();
     }
     
     void peticionFiltros(Coche coche){
-        filtros.ejecutar(coche.getRevoluciones(), coche.getEstado());
-        coche.ejecutar();
+        while(true){
+            filtros.ejecutar(coche.getRevoluciones(), coche.getEstado());
+            coche.ejecutar();
+        }
     }
             
-            
+    public void añadeFiltros(){
+        FiltroCalcularVelocidad filtro1 = new FiltroCalcularVelocidad();
+        FiltroRepercutirRozamiento filtro2 = new FiltroRepercutirRozamiento();
+        
+        filtros.añadeFiltro(filtro1);
+        filtros.añadeFiltro(filtro2);
+    }     
     
 }

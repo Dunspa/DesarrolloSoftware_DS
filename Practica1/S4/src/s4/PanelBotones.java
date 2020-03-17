@@ -12,16 +12,22 @@ import java.awt.Color;
  * @author jlgallego99
  */
 public class PanelBotones extends javax.swing.JPanel {
-
+    
+    private EstadoMotor estadomotor = EstadoMotor.APAGADO;
+    
     /**
      * Creates new form PanelBotones
      */
     public PanelBotones() {
+        initComponents();
         BotonEncender.setForeground(Color.GREEN);
         BotonEncender.setText("ENCENDER");
         estado.setText("APAGADO");
         estado.setForeground(Color.RED);
-        initComponents();
+    }
+    
+    public EstadoMotor getEstadoMotor(){
+        return estadomotor;
     }
 
     /**
@@ -107,6 +113,7 @@ public class PanelBotones extends javax.swing.JPanel {
         // si no no hace nada
         if (BotonEncender.getText().equals("APAGAR") && BotonAcelerar.getText().equals("ACELERAR")){
             estado.setText("FRENANDO");
+            estadomotor = EstadoMotor.FRENANDO;
         }
     }//GEN-LAST:event_BotonFrenarActionPerformed
 
@@ -119,6 +126,7 @@ public class PanelBotones extends javax.swing.JPanel {
             BotonEncender.setForeground(Color.GREEN);
             BotonEncender.setText("ENCENDER");
             estado.setText("APAGADO");
+            estadomotor = EstadoMotor.APAGADO;
         }
     }//GEN-LAST:event_BotonEncenderActionPerformed
 
@@ -128,10 +136,12 @@ public class PanelBotones extends javax.swing.JPanel {
             estado.setText("ACELERANDO");
             BotonAcelerar.setText("SOLTAR ACELERADOR");
             BotonAcelerar.setForeground(Color.RED);
+            estadomotor = EstadoMotor.ACELERANDO;
         }
         
         BotonAcelerar.setText("ACELERAR");
         BotonAcelerar.setForeground(Color.BLACK);
+        estadomotor = EstadoMotor.APAGADO;
     }//GEN-LAST:event_BotonAcelerarActionPerformed
 
 
