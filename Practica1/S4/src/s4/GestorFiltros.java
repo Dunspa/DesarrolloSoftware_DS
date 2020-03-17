@@ -16,9 +16,9 @@ public class GestorFiltros {
         filtros = new CadenaFiltros();
     }
     
-    void peticionFiltros(){
-        filtros.ejecutar(Coche.getRevoluciones(),Coche.getEstado());
-        Coche.ejecutar();
+    void peticionFiltros(Coche coche){
+        filtros.ejecutar(coche.getRevoluciones(), coche.getEstado());
+        coche.ejecutar();
     }
             
             

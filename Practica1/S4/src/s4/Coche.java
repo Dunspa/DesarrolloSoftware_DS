@@ -5,6 +5,9 @@
  */
 package s4;
 
+import java.awt.event.WindowAdapter;
+import javax.swing.BorderFactory;
+
 /**
  *
  * @author sergio
@@ -15,23 +18,36 @@ public class Coche extends javax.swing.JPanel {
      * Creates new form Coche
      */
     public Coche() {
+        // Títulos del panel de cada parte del coche
+        salpicadero.setBorder(BorderFactory.createTitledBorder("Salpicadero"));
+        velocimetro.setBorder(BorderFactory.createTitledBorder("Velocímetro"));
+        cuentakilometros.setBorder(BorderFactory.createTitledBorder("Cuentakilómetros"));
+        cuentarrevoluciones.setBorder(BorderFactory.createTitledBorder("Cuentarrevoluciones"));
         initComponents();
     }
     
      
-    private static double revoluciones;
-    private static EstadoMotor estado;
+    private double revoluciones;
+    private EstadoMotor estado;
 
-    public static double getRevoluciones() {
+    public double getRevoluciones() {
         return revoluciones;
     }
 
-    public static EstadoMotor getEstado() {
+    public EstadoMotor getEstado() {
         return estado;
     }
     
-    public static double ejecutar(){
+    public void setEstado(EstadoMotor e){
+        estado = e;
+    }
+    
+    public double ejecutar(){
         
+    }
+
+    void addWindowListener(WindowAdapter windowAdapter) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public class cocheHebra extends Thread{
@@ -52,19 +68,161 @@ public class Coche extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        salpicadero = new javax.swing.JPanel();
+        velocimetro = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        valor_velocimetro = new javax.swing.JLabel();
+        cuentakilometros = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        contador_reciente = new javax.swing.JLabel();
+        contador_total = new javax.swing.JLabel();
+        cuentarrevoluciones = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        rpm = new javax.swing.JLabel();
+
+        jLabel1.setText("Km/h");
+
+        valor_velocimetro.setText("jLabel2");
+
+        javax.swing.GroupLayout velocimetroLayout = new javax.swing.GroupLayout(velocimetro);
+        velocimetro.setLayout(velocimetroLayout);
+        velocimetroLayout.setHorizontalGroup(
+            velocimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(velocimetroLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(valor_velocimetro)
+                .addContainerGap(226, Short.MAX_VALUE))
+        );
+        velocimetroLayout.setVerticalGroup(
+            velocimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(velocimetroLayout.createSequentialGroup()
+                .addGap(67, 67, 67)
+                .addGroup(velocimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(valor_velocimetro))
+                .addContainerGap(72, Short.MAX_VALUE))
+        );
+
+        jLabel2.setText("Contador reciente");
+
+        jLabel3.setText("Contador total");
+
+        contador_reciente.setText("jLabel4");
+
+        contador_total.setText("jLabel4");
+
+        javax.swing.GroupLayout cuentakilometrosLayout = new javax.swing.GroupLayout(cuentakilometros);
+        cuentakilometros.setLayout(cuentakilometrosLayout);
+        cuentakilometrosLayout.setHorizontalGroup(
+            cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cuentakilometrosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(contador_total)
+                    .addComponent(contador_reciente))
+                .addContainerGap(223, Short.MAX_VALUE))
+        );
+        cuentakilometrosLayout.setVerticalGroup(
+            cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cuentakilometrosLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(contador_reciente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(contador_total))
+                .addGap(37, 37, 37))
+        );
+
+        jLabel4.setText("jLabel4");
+
+        rpm.setText("jLabel5");
+
+        javax.swing.GroupLayout cuentarrevolucionesLayout = new javax.swing.GroupLayout(cuentarrevoluciones);
+        cuentarrevoluciones.setLayout(cuentarrevolucionesLayout);
+        cuentarrevolucionesLayout.setHorizontalGroup(
+            cuentarrevolucionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cuentarrevolucionesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(rpm)
+                .addContainerGap(223, Short.MAX_VALUE))
+        );
+        cuentarrevolucionesLayout.setVerticalGroup(
+            cuentarrevolucionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(cuentarrevolucionesLayout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addGroup(cuentarrevolucionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(rpm))
+                .addContainerGap(71, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout salpicaderoLayout = new javax.swing.GroupLayout(salpicadero);
+        salpicadero.setLayout(salpicaderoLayout);
+        salpicaderoLayout.setHorizontalGroup(
+            salpicaderoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salpicaderoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(salpicaderoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(velocimetro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cuentakilometros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cuentarrevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        salpicaderoLayout.setVerticalGroup(
+            salpicaderoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(salpicaderoLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(velocimetro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(cuentakilometros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addComponent(cuentarrevoluciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(salpicadero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(salpicadero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel contador_reciente;
+    private javax.swing.JLabel contador_total;
+    private javax.swing.JPanel cuentakilometros;
+    private javax.swing.JPanel cuentarrevoluciones;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel rpm;
+    private javax.swing.JPanel salpicadero;
+    private javax.swing.JLabel valor_velocimetro;
+    private javax.swing.JPanel velocimetro;
     // End of variables declaration//GEN-END:variables
 }
