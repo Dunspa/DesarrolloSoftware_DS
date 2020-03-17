@@ -18,10 +18,10 @@ public class GestorFiltros {
     }
     
     void peticionFiltros(Coche coche){
-        while(true){
+        //while(true){
             filtros.ejecutar(coche.getRevoluciones(), coche.getEstado());
             coche.ejecutar();
-        }
+        //}
     }
             
     public void añadeFiltros(){

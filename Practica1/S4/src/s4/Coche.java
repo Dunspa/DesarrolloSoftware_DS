@@ -6,6 +6,7 @@
 package s4;
 
 import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.BorderFactory;
 
 /**
@@ -14,7 +15,7 @@ import javax.swing.BorderFactory;
  */
 public class Coche extends javax.swing.JFrame {
     
-    public Coche() {        
+    Coche() {        
         panel = new PanelBotones();
         panel.setVisible(true);
         this.add(panel);
@@ -26,11 +27,12 @@ public class Coche extends javax.swing.JFrame {
         cuentakilometros.setBorder(BorderFactory.createTitledBorder("Cuentakilómetros"));
         cuentarrevoluciones.setBorder(BorderFactory.createTitledBorder("Cuentarrevoluciones"));
         
-        /*this.addWindowListener(new WindowAdapter() {
+        this.addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 System.exit(0);
             }
-        });*/
+        });
     }
     
      
@@ -58,10 +60,6 @@ public class Coche extends javax.swing.JFrame {
         
         rpm.setText(Double.toString(revoluciones));
         valor_velocimetro.setText(Double.toString(velocidad));
-    }
-
-    void addWindowListener(WindowAdapter windowAdapter) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     public void start(){
