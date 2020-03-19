@@ -6,14 +6,17 @@
 package s4;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author jlgallego99
  */
-public class PanelBotones extends javax.swing.JPanel {
+public class PanelBotones extends javax.swing.JPanel implements Runnable{
     
     private EstadoMotor estadomotor = EstadoMotor.APAGADO;
+    Cliente cliente;
     
     /**
      * Creates new form PanelBotones
@@ -30,6 +33,54 @@ public class PanelBotones extends javax.swing.JPanel {
         return estadomotor;
     }
 
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+    
+    @Override
+    public void run() {
+        while (true){
+            if(BotonEncender.isSelected()){
+                BotonEncender.setForeground(Color.RED);
+                BotonEncender.setText("APAGAR");
+                estado.setText("ENCENDIDO");
+                estado.setForeground(Color.GREEN);
+                estadomotor = EstadoMotor.ENCENDIDO;
+                if(BotonAcelerar.isSelected()){
+                    estado.setText("ACELERANDO");
+                    estado.setForeground(Color.GREEN);
+                    estadomotor = EstadoMotor.ACELERANDO;
+                    BotonFrenar.setSelected(false);
+                }
+                else if(BotonFrenar.isSelected()){
+                    estado.setText("FRENANDO");
+                    estado.setForeground(Color.RED);
+                    estadomotor = EstadoMotor.FRENANDO;
+                    BotonAcelerar.setSelected(false);
+                }
+            }
+            else{
+                BotonEncender.setForeground(Color.GREEN);
+                BotonEncender.setText("ENCENDER");
+                estado.setText("APAGADO");
+                estado.setForeground(Color.RED);
+                estadomotor = EstadoMotor.APAGADO;
+                BotonAcelerar.setSelected(false);
+                BotonFrenar.setSelected(false);
+            }
+            this.cliente.ejecutar(estadomotor);
+            this.repaint();
+            this.revalidate();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PanelBotones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,21 +91,12 @@ public class PanelBotones extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        estado = new javax.swing.JLabel();
-        BotonFrenar = new javax.swing.JButton();
         BotonEncender = new javax.swing.JToggleButton();
         BotonAcelerar = new javax.swing.JToggleButton();
+        BotonFrenar = new javax.swing.JToggleButton();
+        estado = new javax.swing.JLabel();
 
         jLabel1.setText("Mandos");
-
-        estado.setText("-");
-
-        BotonFrenar.setText("FRENAR");
-        BotonFrenar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotonFrenarActionPerformed(evt);
-            }
-        });
 
         BotonEncender.setText("ENCENDER");
         BotonEncender.addActionListener(new java.awt.event.ActionListener() {
@@ -70,86 +112,68 @@ public class PanelBotones extends javax.swing.JPanel {
             }
         });
 
+        BotonFrenar.setText("FRENAR");
+        BotonFrenar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BotonFrenarActionPerformed(evt);
+            }
+        });
+
+        estado.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(BotonEncender)
-                .addGap(82, 82, 82)
-                .addComponent(BotonAcelerar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                .addComponent(BotonFrenar)
-                .addGap(14, 14, 14))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
+                        .addComponent(BotonEncender)
+                        .addGap(79, 79, 79)
+                        .addComponent(BotonAcelerar))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(246, 246, 246)
-                        .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(188, 188, 188)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(estado)
+                            .addComponent(jLabel1))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addComponent(BotonFrenar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(4, 4, 4)
+                .addGap(28, 28, 28)
                 .addComponent(estado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonFrenar)
                     .addComponent(BotonEncender)
-                    .addComponent(BotonAcelerar))
+                    .addComponent(BotonAcelerar)
+                    .addComponent(BotonFrenar))
                 .addGap(21, 21, 21))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotonFrenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFrenarActionPerformed
-        // Frenando solo si el motor está encendido y el acelerador no está pulsado
-        // si no no hace nada
-        if (BotonEncender.getText().equals("APAGAR") && BotonAcelerar.getText().equals("ACELERAR")){
-            estado.setText("FRENANDO");
-            estadomotor = EstadoMotor.FRENANDO;
-        }
-    }//GEN-LAST:event_BotonFrenarActionPerformed
-
     private void BotonEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEncenderActionPerformed
-        if (BotonEncender.getText().equals("ENCENDER")){
-            BotonEncender.setForeground(Color.RED);
-            BotonEncender.setText("APAGAR");
-        }
-        else{
-            BotonEncender.setForeground(Color.GREEN);
-            BotonEncender.setText("ENCENDER");
-            estado.setText("APAGADO");
-            estadomotor = EstadoMotor.APAGADO;
-        }
+
     }//GEN-LAST:event_BotonEncenderActionPerformed
 
     private void BotonAcelerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonAcelerarActionPerformed
-        // Acelerando solo si el motor está encendido y no se está frenando, si no no hace nada
-        if (BotonEncender.getText().equals("APAGAR") && !estado.getText().equals("FRENANDO")){
-            estado.setText("ACELERANDO");
-            BotonAcelerar.setText("SOLTAR ACELERADOR");
-            BotonAcelerar.setForeground(Color.RED);
-            estadomotor = EstadoMotor.ACELERANDO;
-        }
-        
-        BotonAcelerar.setText("ACELERAR");
-        BotonAcelerar.setForeground(Color.BLACK);
-        estadomotor = EstadoMotor.APAGADO;
+
     }//GEN-LAST:event_BotonAcelerarActionPerformed
+
+    private void BotonFrenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonFrenarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BotonFrenarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton BotonAcelerar;
     private javax.swing.JToggleButton BotonEncender;
-    private javax.swing.JButton BotonFrenar;
+    private javax.swing.JToggleButton BotonFrenar;
     private javax.swing.JLabel estado;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
 }

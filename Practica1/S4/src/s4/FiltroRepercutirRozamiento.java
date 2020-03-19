@@ -14,7 +14,10 @@ public class FiltroRepercutirRozamiento implements Filtro{
 
     @Override
     public double ejecutar(double revoluciones, EstadoMotor estado) {
-        revoluciones--;
+        revoluciones -= 20;
+        if(revoluciones <0){
+        revoluciones = 0;
+        }
         return revoluciones;
     }
     

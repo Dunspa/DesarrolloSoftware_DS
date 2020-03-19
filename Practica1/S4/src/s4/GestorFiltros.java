@@ -10,18 +10,21 @@ package s4;
  * @author sergio
  */
 public class GestorFiltros {
+    private double revoluciones;
     private CadenaFiltros filtros;
+    Coche coche;
 
     public GestorFiltros() {
+        coche = new Coche();
+        coche.setVisible(true);
         filtros = new CadenaFiltros();
+        revoluciones = 0.0;
         añadeFiltros();
     }
     
-    void peticionFiltros(Coche coche){
-        //while(true){
-            filtros.ejecutar(coche.getRevoluciones(), coche.getEstado());
-            coche.ejecutar();
-        //}
+    public void ejecutar(EstadoMotor estado){
+        revoluciones = filtros.ejecutar(revoluciones,estado);
+        coche.ejecutar(revoluciones,estado);
     }
             
     public void añadeFiltros(){

@@ -15,10 +15,11 @@ public class CadenaFiltros {
     
     private ArrayList<Filtro> filtros = new ArrayList<>();
     
-    void ejecutar(double revoluciones, EstadoMotor estado){
+    double ejecutar(double revoluciones, EstadoMotor estado){
         for (Filtro f : filtros){
-            f.ejecutar(revoluciones, estado);
+            revoluciones = f.ejecutar(revoluciones, estado);
         }
+        return revoluciones;
     }
     
     void añadeFiltro(Filtro filtro){

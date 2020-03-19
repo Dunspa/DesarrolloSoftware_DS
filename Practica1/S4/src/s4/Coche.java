@@ -7,6 +7,7 @@ package s4;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.text.DecimalFormat;
 import javax.swing.BorderFactory;
 
 /**
@@ -15,10 +16,11 @@ import javax.swing.BorderFactory;
  */
 public class Coche extends javax.swing.JFrame {
     
+    double distanciaAcumulada;
+    double distanciaActual;
+    private static final DecimalFormat decimales = new DecimalFormat("#.###");
     Coche() {        
-        panel = new PanelBotones();
-        panel.setVisible(true);
-        this.add(panel);
+        
         initComponents();
         
         // Títulos del panel de cada parte del coche
@@ -26,6 +28,8 @@ public class Coche extends javax.swing.JFrame {
         velocimetro.setBorder(BorderFactory.createTitledBorder("Velocímetro"));
         cuentakilometros.setBorder(BorderFactory.createTitledBorder("Cuentakilómetros"));
         cuentarrevoluciones.setBorder(BorderFactory.createTitledBorder("Cuentarrevoluciones"));
+        distanciaAcumulada = 0.0;
+        distanciaActual = 0.0;
         
         this.addWindowListener(new WindowAdapter() {
             @Override
@@ -35,33 +39,25 @@ public class Coche extends javax.swing.JFrame {
         });
     }
     
-     
-    private double revoluciones;
-    private double velocidad;
-    private double distancia_recorrida;
-    private EstadoMotor estado = EstadoMotor.APAGADO;
-    private PanelBotones panel;
 
-    public double getRevoluciones() {
-        return revoluciones;
-    }
-
-    public EstadoMotor getEstado() {
-        return estado;
-    }
     
-    public void setEstado(EstadoMotor e){
-        estado = e;
-    }
-    
-    public void ejecutar(){
-        velocidad = 2.0 * Math.PI * 0.15 * revoluciones * (60.0/1000.0);
-        distancia_recorrida = velocidad * 1;
+    public void ejecutar(double revoluciones,EstadoMotor estado){
+        double velocidad = 2.0 * Math.PI * 0.15 * revoluciones * (60.0/1000.0);
+        double distancia_recorrida = velocidad/3600.0;
+        distanciaActual += distancia_recorrida;
+        distanciaAcumulada += distancia_recorrida;
+        
+        if(estado == EstadoMotor.APAGADO){
+            distanciaActual = 0.0;
+        }
         
         rpm.setText(Double.toString(revoluciones));
-        valor_velocimetro.setText(Double.toString(velocidad));
+        valor_velocimetro.setText(decimales.format(velocidad));
+        contador_total.setText(decimales.format(distanciaAcumulada));
+        contador_reciente.setText(decimales.format(distanciaActual));
     }
     
+    /*
     public void start(){
         cocheHebra hilo = new cocheHebra();
         hilo.start();
@@ -74,7 +70,7 @@ public class Coche extends javax.swing.JFrame {
                 setEstado(panel.getEstadoMotor());
             }
         }
-    }                         
+    } */                        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,6 +87,8 @@ public class Coche extends javax.swing.JFrame {
         cuentakilometros = new javax.swing.JPanel();
         contador_reciente = new javax.swing.JLabel();
         contador_total = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         cuentarrevoluciones = new javax.swing.JPanel();
         rpm = new javax.swing.JLabel();
 
@@ -105,7 +103,7 @@ public class Coche extends javax.swing.JFrame {
             .addGroup(velocimetroLayout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addComponent(valor_velocimetro)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(289, Short.MAX_VALUE))
         );
         velocimetroLayout.setVerticalGroup(
             velocimetroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -119,25 +117,37 @@ public class Coche extends javax.swing.JFrame {
 
         contador_total.setText("jLabel1");
 
+        jLabel3.setText("Actual:");
+
+        jLabel4.setText("Total:");
+
         javax.swing.GroupLayout cuentakilometrosLayout = new javax.swing.GroupLayout(cuentakilometros);
         cuentakilometros.setLayout(cuentakilometrosLayout);
         cuentakilometrosLayout.setHorizontalGroup(
             cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cuentakilometrosLayout.createSequentialGroup()
-                .addGap(79, 79, 79)
+                .addContainerGap()
+                .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addGap(18, 18, 18)
                 .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(contador_total)
                     .addComponent(contador_reciente))
-                .addContainerGap(286, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         cuentakilometrosLayout.setVerticalGroup(
             cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(cuentakilometrosLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
-                .addComponent(contador_reciente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addComponent(contador_total)
-                .addGap(38, 38, 38))
+                .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contador_reciente)
+                    .addComponent(jLabel3))
+                .addGap(42, 42, 42)
+                .addGroup(cuentakilometrosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contador_total)
+                    .addComponent(jLabel4))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         rpm.setText("jLabel1");
@@ -149,7 +159,7 @@ public class Coche extends javax.swing.JFrame {
             .addGroup(cuentarrevolucionesLayout.createSequentialGroup()
                 .addGap(79, 79, 79)
                 .addComponent(rpm)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(286, Short.MAX_VALUE))
         );
         cuentarrevolucionesLayout.setVerticalGroup(
             cuentarrevolucionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -243,6 +253,8 @@ public class Coche extends javax.swing.JFrame {
     private javax.swing.JLabel contador_total;
     private javax.swing.JPanel cuentakilometros;
     private javax.swing.JPanel cuentarrevoluciones;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel rpm;
     private javax.swing.JPanel salpicadero;
     private javax.swing.JLabel valor_velocimetro;

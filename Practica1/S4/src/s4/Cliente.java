@@ -5,6 +5,8 @@
  */
 package s4;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author sergio
@@ -14,16 +16,30 @@ public class Cliente {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // Crear objetivo (coche)
-        Coche coche = new Coche();
-        coche.start();
-        
-        // Iniciar gestor de filtros del coche
-        GestorFiltros gestor = new GestorFiltros();
-        gestor.peticionFiltros(coche);
-        
-        coche.setVisible(true);
+    
+    PanelBotones panel;
+    GestorFiltros gestor;
+            
+    public Cliente() {
+        panel = new PanelBotones();
+        panel.setCliente(this);
+        gestor = new GestorFiltros();
+        Thread hebra = new Thread(panel);
+        JFrame f = new JFrame();
+        f.add(panel);
+        f.setSize(400, 200);
+        f.setVisible(true);
+        hebra.start();
+    }
+
+    void ejecutar(EstadoMotor estado){
+        gestor.ejecutar(estado);
+    }
+    
+    public static void main(String args[]){
+        Cliente cliente = new Cliente();
     }
     
 }
+
+
