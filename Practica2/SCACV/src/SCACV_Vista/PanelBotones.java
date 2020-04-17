@@ -7,7 +7,11 @@ package SCACV_Vista;
 
 import SCACV_Controlador.*;
 import SCACV_Modelo.EstadoMotor;
+import SCACV_Modelo.EstadoPalanca;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,8 +19,9 @@ import java.util.logging.Logger;
  *
  * @author jlgallego99
  */
-public class PanelBotones extends javax.swing.JPanel implements Runnable{
+public class PanelBotones extends javax.swing.JPanel implements Runnable, ActionListener{
     Controlador controlador;
+    private static final DecimalFormat decimales = new DecimalFormat("#.###");
     
     /**
      * Creates new form PanelBotones
@@ -27,6 +32,21 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
         BotonEncender.setText("ENCENDER");
         estado.setText("APAGADO");
         estado.setForeground(Color.RED);
+        scacv.setText("SCACV: Apagado");
+        scacv.setForeground(Color.RED);
+        apagado.setSelected(true);
+        acelerar.setEnabled(false);
+        reiniciar.setEnabled(false);
+        
+        velocidad_scacv.setText("0.0");
+        
+        BotonEncender.addActionListener(this);
+        BotonAcelerar.addActionListener(this);
+        BotonFrenar.addActionListener(this);
+        acelerar.addActionListener(this);
+        apagado.addActionListener(this);
+        mantener.addActionListener(this);
+        reiniciar.addActionListener(this);
     }
 
     public void setControlador(Controlador controlador) {
@@ -34,28 +54,16 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
     }
     
     @Override
-    public void run() {
-        while (true){
-            if(BotonEncender.isSelected()){
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == BotonEncender) {
+            if (BotonEncender.isSelected()) {
                 BotonEncender.setForeground(Color.RED);
                 BotonEncender.setText("APAGAR");
                 estado.setText("ENCENDIDO");
                 estado.setForeground(Color.GREEN);
                 controlador.setEstadoMotor(EstadoMotor.ENCENDIDO);
-                if(BotonAcelerar.isSelected()){
-                    estado.setText("ACELERANDO");
-                    estado.setForeground(Color.GREEN);
-                    controlador.setEstadoMotor(EstadoMotor.ACELERANDO);
-                    BotonFrenar.setSelected(false);
-                }
-                else if(BotonFrenar.isSelected()){
-                    estado.setText("FRENANDO");
-                    estado.setForeground(Color.RED);
-                    controlador.setEstadoMotor(EstadoMotor.FRENANDO);
-                    BotonAcelerar.setSelected(false);
-                }
             }
-            else{
+            else {
                 BotonEncender.setForeground(Color.GREEN);
                 BotonEncender.setText("ENCENDER");
                 estado.setText("APAGADO");
@@ -63,20 +71,124 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
                 controlador.setEstadoMotor(EstadoMotor.APAGADO);
                 BotonAcelerar.setSelected(false);
                 BotonFrenar.setSelected(false);
-            }
-            controlador.ejecutar();
-            this.repaint();
-            this.revalidate();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(PanelBotones.class.getName()).log(Level.SEVERE, null, ex);
+                scacv.setText("SCACV: Apagado");
+                scacv.setForeground(Color.RED);
+                apagado.setSelected(true);
+                reiniciar.setSelected(false);
+                mantener.setSelected(false);
+                acelerar.setEnabled(false);
+                reiniciar.setEnabled(false);
             }
         }
+        else if (e.getSource() == BotonAcelerar) {
+            estado.setText("ENCENDIDO");
+            estado.setForeground(Color.GREEN);
+            controlador.setEstadoMotor(EstadoMotor.ENCENDIDO);
+            acelerar.setEnabled(true);
+            
+            if (BotonEncender.isSelected() && apagado.isSelected() && BotonAcelerar.isSelected()) {
+                estado.setText("ACELERANDO");
+                estado.setForeground(Color.GREEN);
+                controlador.setEstadoMotor(EstadoMotor.ACELERANDO);
+                controlador.setEstadoPalanca(EstadoPalanca.APAGADO);
+                BotonFrenar.setSelected(false);
+                acelerar.setEnabled(false);
+            }
+            else {
+                BotonAcelerar.setSelected(false);
+            }
+        }
+        else if (e.getSource() == BotonFrenar) {
+            estado.setText("ENCENDIDO");
+            estado.setForeground(Color.GREEN);
+            controlador.setEstadoMotor(EstadoMotor.ENCENDIDO);
+            BotonAcelerar.setEnabled(true);
+            
+            if (BotonFrenar.isSelected()) {
+                estado.setText("FRENANDO");
+                estado.setForeground(Color.RED);
+                controlador.setEstadoMotor(EstadoMotor.FRENANDO);
+                controlador.setEstadoPalanca(EstadoPalanca.APAGADO);
+                scacv.setText("SCACV: Apagado");
+                scacv.setForeground(Color.RED);
+                apagado.setSelected(true);
+                BotonAcelerar.setSelected(false);
+                acelerar.setSelected(false);
+                mantener.setSelected(false);
+                reiniciar.setSelected(false);
+            }
+            else {
+                BotonFrenar.setSelected(false);
+            }
+        }
+        else if (e.getSource() == acelerar) {
+            if (BotonEncender.isSelected()) {
+                reiniciar.setSelected(false);
+                controlador.setEstadoPalanca(EstadoPalanca.ACELERAR);
+                scacv.setText("SCACV: Encendido");
+                scacv.setForeground(Color.GREEN);
+                controlador.setEstadoMotor(EstadoMotor.ACELERANDO);
+                BotonFrenar.setSelected(false);
+                mantener.setSelected(false);
+                apagado.setSelected(false);
+            }
+            else {
+                acelerar.setSelected(false);
+            }
+        }
+        else if (e.getSource() == mantener) {
+            if (BotonEncender.isSelected()) {
+                controlador.setEstadoPalanca(EstadoPalanca.MANTENER);
+                velocidad_scacv.setText(decimales.format(controlador.getVelocidadSCACV()));
+                scacv.setText("SCACV: Encendido");
+                scacv.setForeground(Color.GREEN);
+                BotonAcelerar.setEnabled(false);
+                apagado.setSelected(false);
+                acelerar.setEnabled(true);
+                reiniciar.setEnabled(true);
+                reiniciar.setSelected(false);
+                acelerar.setSelected(false);
+            }
+            else {
+                mantener.setSelected(false);
+            }
+        }
+        else if (e.getSource() == reiniciar) {
+            if (BotonEncender.isSelected() && apagado.isSelected()) {
+                controlador.setEstadoPalanca(EstadoPalanca.REINICIAR);
+                controlador.setEstadoMotor(EstadoMotor.ACELERANDO);
+                velocidad_scacv.setText(decimales.format(controlador.getVelocidadSCACV()));
+                scacv.setText("SCACV: Encendido");
+                scacv.setForeground(Color.GREEN);
+                apagado.setSelected(false);
+            }
+            else {
+                reiniciar.setSelected(false);
+            }
+        }
+        else if (e.getSource() == apagado) {
+            if (BotonEncender.isSelected() && (mantener.isSelected() || acelerar.isSelected())) {
+                controlador.setEstadoPalanca(EstadoPalanca.APAGADO);
+                scacv.setText("SCACV: Apagado");
+                scacv.setForeground(Color.RED);
+                acelerar.setSelected(false);
+                acelerar.setEnabled(false);
+                reiniciar.setEnabled(true);
+                reiniciar.setSelected(false);
+                BotonAcelerar.setSelected(false);
+                BotonAcelerar.setEnabled(true);
+                mantener.setSelected(false);
+                controlador.setEstadoMotor(EstadoMotor.ENCENDIDO);
+            }
+            else {
+                apagado.setSelected(false);
+            }
+        }
+        
+        controlador.ejecutar();
+        this.repaint();
+        this.revalidate();
     }
-    
-    
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,8 +203,17 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
         BotonAcelerar = new javax.swing.JToggleButton();
         BotonFrenar = new javax.swing.JToggleButton();
         estado = new javax.swing.JLabel();
+        scacv = new javax.swing.JLabel();
+        acelerar = new javax.swing.JToggleButton();
+        mantener = new javax.swing.JToggleButton();
+        reiniciar = new javax.swing.JToggleButton();
+        apagado = new javax.swing.JToggleButton();
+        velocidad_scacv = new javax.swing.JLabel();
+
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Mandos");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 12, -1, -1));
 
         BotonEncender.setText("ENCENDER");
         BotonEncender.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +221,7 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
                 BotonEncenderActionPerformed(evt);
             }
         });
+        add(BotonEncender, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 96, -1, -1));
 
         BotonAcelerar.setText("ACELERAR");
         BotonAcelerar.addActionListener(new java.awt.event.ActionListener() {
@@ -107,6 +229,7 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
                 BotonAcelerarActionPerformed(evt);
             }
         });
+        add(BotonAcelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(176, 96, -1, -1));
 
         BotonFrenar.setText("FRENAR");
         BotonFrenar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,41 +237,28 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
                 BotonFrenarActionPerformed(evt);
             }
         });
+        add(BotonFrenar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 96, 91, -1));
 
         estado.setText("jLabel2");
+        add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(188, 59, -1, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BotonEncender)
-                        .addGap(79, 79, 79)
-                        .addComponent(BotonAcelerar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(188, 188, 188)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(estado)
-                            .addComponent(jLabel1))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(BotonFrenar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(28, 28, 28)
-                .addComponent(estado)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotonEncender)
-                    .addComponent(BotonAcelerar)
-                    .addComponent(BotonFrenar))
-                .addGap(21, 21, 21))
-        );
+        scacv.setText("SCACV");
+        add(scacv, new org.netbeans.lib.awtextra.AbsoluteConstraints(193, 145, -1, -1));
+
+        acelerar.setText("ACELERAR");
+        add(acelerar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, -1, -1));
+
+        mantener.setText("MANTENER");
+        add(mantener, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 240, -1, -1));
+
+        reiniciar.setText("REINICIAR");
+        add(reiniciar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, -1, -1));
+
+        apagado.setText("APAGADO");
+        add(apagado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
+
+        velocidad_scacv.setText("jLabel2");
+        add(velocidad_scacv, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 240, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotonEncenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonEncenderActionPerformed
@@ -168,8 +278,33 @@ public class PanelBotones extends javax.swing.JPanel implements Runnable{
     private javax.swing.JToggleButton BotonAcelerar;
     private javax.swing.JToggleButton BotonEncender;
     private javax.swing.JToggleButton BotonFrenar;
+    private javax.swing.JToggleButton acelerar;
+    private javax.swing.JToggleButton apagado;
     private javax.swing.JLabel estado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton mantener;
+    private javax.swing.JToggleButton reiniciar;
+    private javax.swing.JLabel scacv;
+    private javax.swing.JLabel velocidad_scacv;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void run() {
+        while (true) {
+            if (controlador.getEstadoPalanca() != EstadoPalanca.REINICIAR) {
+                controlador.ejecutar();
+            }
+            
+            velocidad_scacv.setText(decimales.format(controlador.getVelocidadSCACV()));
+            this.repaint();
+            this.revalidate();
+            
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PanelBotones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
 
 }

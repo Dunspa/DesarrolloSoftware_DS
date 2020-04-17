@@ -16,6 +16,7 @@ public class Controlador {
     GestorFiltros gestor;
     Coche coche;
     private EstadoMotor estadomotor = EstadoMotor.APAGADO;
+    private EstadoPalanca estadopalanca = EstadoPalanca.APAGADO;
     
     public Controlador() {
         gestor = new GestorFiltros();
@@ -34,6 +35,10 @@ public class Controlador {
         return coche.getVelocidad();
     }
     
+    public double getVelocidadSCACV() {
+        return coche.getVelocidadSCACV();
+    }
+    
     public double getRPM() {
         return coche.getRPM();
     }
@@ -42,12 +47,24 @@ public class Controlador {
         return estadomotor;
     }
     
+    public EstadoPalanca getEstadoPalanca() {
+        return estadopalanca;
+    }
+    
     public void setEstadoMotor(EstadoMotor estado) {
         this.estadomotor = estado;
     }
     
+    public void setEstadoPalanca(EstadoPalanca estado) {
+        this.estadopalanca = estado;
+    }
+    
     public void ejecutar(){
-        double revoluciones = gestor.ejecutar(estadomotor);
-        coche.ejecutar(revoluciones, estadomotor);
+        double revoluciones = 1.0;
+        if (estadopalanca != EstadoPalanca.MANTENER) {
+            revoluciones = gestor.ejecutar(estadomotor);
+        }
+        
+        coche.ejecutar(revoluciones, estadomotor, estadopalanca);
     }
 }

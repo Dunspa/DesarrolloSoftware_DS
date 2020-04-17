@@ -15,6 +15,7 @@ public class Coche {
     double distanciaAcumulada;
     double distanciaActual;
     double velocidad;
+    double velocidad_SCACV;
     double rpm;
     
     public Coche() {
@@ -24,13 +25,28 @@ public class Coche {
         distanciaAcumulada = 0.0;
         distanciaActual = 0.0;
         velocidad = 0.0;
+        velocidad_SCACV = 0.0;
         rpm = 0.0;
     }
     
-    public void ejecutar(double revoluciones, EstadoMotor estado){
-        velocidad = 2.0 * Math.PI * 0.15 * revoluciones * (60.0/1000.0);
-        System.out.println(velocidad);
-        System.out.println(revoluciones);
+    public void ejecutar(double revoluciones, EstadoMotor estado, EstadoPalanca estadoPalanca){
+        if (estadoPalanca == EstadoPalanca.MANTENER) {
+            velocidad_SCACV = velocidad;
+        }
+        else if (estadoPalanca == EstadoPalanca.REINICIAR) {
+            velocidad = 2.0 * Math.PI * 0.15 * revoluciones * (60.0/1000.0);
+            System.out.println(velocidad);
+            System.out.println(revoluciones);
+            
+            if (velocidad >= velocidad_SCACV) {
+                System.out.println(velocidad);
+                velocidad = velocidad_SCACV;
+            }
+        }
+        else if (estadoPalanca != EstadoPalanca.MANTENER) {
+            velocidad = 2.0 * Math.PI * 0.15 * revoluciones * (60.0/1000.0);
+        }
+        
         double distancia_recorrida = velocidad/3600.0;
         distanciaActual += distancia_recorrida;
         distanciaAcumulada += distancia_recorrida;
@@ -51,6 +67,10 @@ public class Coche {
     
     public double getVelocidad() {
         return velocidad;
+    }
+    
+    public double getVelocidadSCACV() {
+        return velocidad_SCACV;
     }
     
     public double getRPM() {
