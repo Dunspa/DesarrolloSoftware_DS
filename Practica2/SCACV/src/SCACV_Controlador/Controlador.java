@@ -43,6 +43,10 @@ public class Controlador {
         return coche.getRPM();
     }
     
+    public double getCombustible() {
+        return coche.getCombustible();
+    }
+    
     public EstadoMotor getEstadoMotor() {
         return estadomotor;
     }
@@ -59,6 +63,34 @@ public class Controlador {
         this.estadopalanca = estado;
     }
     
+      public void setCuentaRevAceite(double d) {
+        coche.setCuentaRevAceite(d);
+    }
+    
+    public void setCuentaRevGeneral(double d) {
+        coche.setCuentaRevGeneral(d);
+    }
+    
+    public void setCuentaRevFrenos(double d) {
+        coche.setCuentaRevFrenos(d);
+    }
+
+    public void setCombustible(double d) {
+        coche.setCombustible(d);
+    }
+    
+    public double getCuentaRevAceite() {
+        return coche.getCuentaRevAceite();
+    }
+                
+    public double getCuentaRevFrenos() {
+        return coche.getCuentaRevFrenos();
+    }
+
+    public double getCuentaRevGeneral() {
+        return coche.getCuentaRevGeneral();
+    }
+    
     public void ejecutar(){
         double revoluciones = 1.0;
         if (estadopalanca != EstadoPalanca.MANTENER) {
@@ -67,4 +99,5 @@ public class Controlador {
         
         coche.ejecutar(revoluciones, estadomotor, estadopalanca);
     }
+
 }
