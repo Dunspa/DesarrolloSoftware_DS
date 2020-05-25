@@ -1,0 +1,157 @@
+\documentclass[11pt, spanish]{article}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage[table,xcdraw]{xcolor}
+\lstset{  
+    mathescape=true
+}
+
+\usepackage{amsmath}%
+\usepackage{MnSymbol}%
+\usepackage{wasysym}%
+
+\usepackage[default]{sourcesanspro}
+
+\setmarginsrb{2 cm}{1 cm}{2 cm}{2 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Práctica 3 - Descripción Arquitectónica\hspace{0.05cm}}
+\author{Jose Luis Gallego Peña\\Sergio Campos Megías}
+\date{\today}                                           
+
+\renewcommand*\contentsname{hola}
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+    \centering
+    \vspace*{0.1 cm}
+    \includegraphics[scale = 0.50]{ugr.png}\\[0.5 cm]
+    %\textsc{\LARGE Universidad de Granada}\\[2.0 cm]   
+    \textsc{\large 3º Ingeniería del Software}\\[0.5 cm]        
+    \textsc{\large Desarrollo de Software}\\[0.5 cm]       
+    \textsc{\large Grado en Ingeniería Informática}\\[0.5 cm]              
+    \rule{\linewidth}{0.2 mm} \\[0.2 cm]
+    { \huge \bfseries \thetitle}\\
+    \rule{\linewidth}{0.2 mm} \\[1.5 cm]
+    	
+    \begin{minipage}{1\textwidth}
+        \begin{center} \large
+            \theauthor
+        \end{center}
+    \end{minipage}~
+    
+    \vspace{2cm}
+    {\large \thedate}\\[1 cm]
+ 	
+    \vfill
+    
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\fbox{\includegraphics[scale=0.25]{.png}}
+\section{Análisis de requisitos}
+
+Se realizará la descripción arquitectónica de un sistema multiplataforma de gestión de catálogo de videojuegos. Se trata de un sistema que muestra información sobre distintos videojuegos y enlaces hacia páginas para comprarlos.
+
+Sus principales objetivos son:
+
+\begin{itemize}
+\item Una app móvil para el usuario que interaccione con un servidor web REST desplegado en internet, con la cual se podrá acceder al catálogo de videojuegos, consultar información y redirigirse a las distintas páginas para comprarlo.
+
+\item Una aplicación web REST desplegada en internet que permita a los administradores acceder al catálogo para añadir nuevos videojuegos, eliminarlos o modificar datos.
+
+\item Establecer un sistema funcional y rápido con una interfaz de usuario simple e intuitiva para garantizar la fidelidad de los usuarios.
+\end{itemize}
+
+Los desglosamos a continuación en requisitos no funcionales y funcionales, con el posterior análisis de cada uno.
+
+\subsection{Análisis de requisitos no funcionales}
+
+\begin{itemize}
+\item \textbf{RNF1} - El sistema web usará tecnologías REST y estará programado en el lenguaje Java.
+
+\item \textbf{RNF2} - Se usará el servidor web que proporciona Netbeans, junto al SGBD MySQL
+
+\item \textbf{RNF3} - La aplicación estará desarrollada en Java Android usando Android Studio.
+
+\item \textbf{RNF4} - La interfaz de la aplicación será simple e intuitiva, con pocas opciones, siguiendo los estándares Android Material Design.
+
+\item \textbf{RNF5} - La aplicación interaccionará con el servidor REST desplegado en internet.
+
+\item \textbf{RNF6} - Permitirá únicamente el castellano, aunque podrá redirigir a páginas de cualquier idioma. Tendrá la posibilidad de añadir nuevos idiomas en el futuro.
+
+\item \textbf{RNF7} - Debe cumplir la ley de protección de datos y la privacidad del usuario.
+\end{itemize}
+
+Además, el sistema debe mantener los siguientes criterios de calidad:
+
+\begin{itemize}
+\item \textbf{RNF8} - \textbf{Seguridad}: El sistema debe acceder de forma segura a su base de datos usando un sistema de login y contraseña, asegurando al confidencialidad de estos datos.
+
+\item \textbf{RNF9} - \textbf{Fiabilidad}: El sistema deberá funcionar sin fallos y responder a las peticiones de forma rápida y correcta.
+
+\item \textbf{RNF19} - \textbf{Mantenibilidad}: El sistema deberá ser lo suficientemente simple como para poder mantenerse y usarse durante un periodo grande de tiempo, pudiendo además añadir nuevas funcionalidades con el tiempo de forma simple gracias a un buen diseño.
+\end{itemize}
+
+\subsection{Análisis de requisitos funcionales}
+
+\begin{itemize}
+\item \textbf{RF1} - Añadir videojuego al catálogo
+\item \textbf{RF2} - Modificar descripción videojuego
+\item \textbf{RF3} - Modificar precio videojuego
+\item \textbf{RF4} - Modificar página videojuego
+\item \textbf{RF5} - Modificar imagen videojuego
+\item \textbf{RF6} - Eliminar videojuego del catálogo
+\item \textbf{RF7} - Añadir videojuego a favoritos
+\item \textbf{RF8} - Consultar información videojuego
+\item \textbf{RF9} - Buscar videojuego
+\end{itemize}
+
+Requisitos funcionales que NO son responsabilidad del sistema:
+
+\begin{itemize}
+\item Implementar la tecnología REST
+\item Desarrollar el servidor web
+\end{itemize}
+
+\section{Punto de vista contextual}
+
+El sistema consiste en dos grandes subsistemas:
+
+\begin{itemize}
+\item Para el usuario: Una app que interacciona con un servidor web, con la cual se podrá acceder al catálogo de videojuegos, consultar información y redirigirse a las distintas páginas para comprarlo.
+\item Para los mantenedores/desarrolladores: Una aplicación web que permita a los administradores acceder al catálogo para añadir nuevos videojuegos, eliminarlos o modificar datos.
+\end{itemize}
+
+\centering
+\fbox{\includegraphics[scale=0.65]{contexto.png}}
+
+\end{document}
