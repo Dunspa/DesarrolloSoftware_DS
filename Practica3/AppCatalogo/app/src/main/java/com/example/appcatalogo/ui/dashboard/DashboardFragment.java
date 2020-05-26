@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,16 +20,21 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.appcatalogo.R;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -44,10 +50,15 @@ import retrofit2.http.GET;
 
 // Representa cada uno de los datos que vamos a estar recibiendo por medio de la API REST
 class Post {
+    @SerializedName("name")
     private String name;
+    @SerializedName("desc")
     private String desc;
+    @SerializedName("precio")
     private double precio;
+    @SerializedName("link")
     private String link;
+    @SerializedName("img")
     private String img;
 
     public String getName() {
@@ -93,7 +104,7 @@ class Post {
 
 // Interfaz para gestionar cada petición a la API REST
 interface PostService {
-    String API_ROUTE = "/PracticaFinal/api/hello/getAllGames";    // URI donde se realizará la petición
+    String API_ROUTE = "getAllGames";    // URI donde se realizará la petición
 
     @GET(API_ROUTE)
     Call< List<Post> > getPost();
@@ -142,7 +153,7 @@ class CustomList extends ArrayAdapter<String> {
 
     public void getPosts() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://localhost:8084")
+                .baseUrl("http://192.168.1.132:8084/PracticaFinal/api/hello/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         PostService postService = retrofit.create(PostService.class);
@@ -163,6 +174,12 @@ class CustomList extends ArrayAdapter<String> {
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
+                if (t instanceof IOException) {
+                    System.out.println("this is an actual network failure :( inform the user and possibly retry");
+                }
+                else {
+                    System.out.println("conversion issue! big problems :(");
+                }
             }
         });
     }
@@ -189,8 +206,28 @@ public class DashboardFragment extends Fragment {
         adapter = new CustomList(getActivity(), nombre, descripcion, precio, imagen, web);
         list = (ListView) root.findViewById(R.id.catalogo);
         list.setAdapter(adapter);
-
         // Realizar petición a API REST
+        /*try {
+
+            URL url = new URL("http://10.0.2.2:8084/PracticaFinal/api/hello/getAllGames");//your url i.e fetch data from .
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Accept", "application/json");
+            if (conn.getResponseCode() != 200) {
+                throw new RuntimeException("Failed : HTTP Error code : "
+                        + conn.getResponseCode());
+            }
+            InputStreamReader in = new InputStreamReader(conn.getInputStream());
+            BufferedReader br = new BufferedReader(in);
+            String output;
+            while ((output = br.readLine()) != null) {
+                Log.i("COSA", output);
+            }
+            conn.disconnect();
+
+        } catch (Exception e) {
+            System.out.println("Exception in NetClientGet:- " + e);
+        }*/
         adapter.getPosts();
 
         // Actualizar lista
