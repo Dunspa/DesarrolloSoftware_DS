@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Trade+Winds&display=swap');
+
+body {
+ background-color: black;
+}
+
+.cabecera {
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow:auto;
+  text-align: center;
+}
+
+.titulo {
+  -webkit-text-fill-color: darkgrey;
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: black;
+  font-size: 130%;
+  display: inline-block;
+  padding-top: 3%;
+  padding-bottom: 1.5%;
+}
+
+.furmulario{
+  color:darkgrey;
+  height: 97%;
+  float:left;
+  display: block;
+  width:60%;
+  margin-top:57px;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.infoGrande {
+  background-color: darkgrey;
+  width: 250px;
+  height: 30%;
+  margin-left: 5%;
+  text-align: center;
+  display: block;
+  margin-bottom:15px;
+  width: 90%;
+}
+
+.etiquetas {
+  color:darkgrey;
+  width:100%;
+  text-align: center;
+  display: block;
+  margin-bottom:10px;
+}
+
+.info {
+  background-color: darkgrey;
+  width: 250px;
+  margin-left: 260px;
+  text-align: center;
+  display: block;
+  margin-bottom:15px;
+}

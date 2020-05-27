@@ -2,5 +2,7 @@
 \babel@toc {spanish}{}
 \contentsline {section}{\numberline {1}An\IeC {\'a}lisis de requisitos}{2}% 
 \contentsline {subsection}{\numberline {1.1}An\IeC {\'a}lisis de requisitos no funcionales}{2}% 
-\contentsline {subsection}{\numberline {1.2}An\IeC {\'a}lisis de requisitos funcionales}{2}% 
+\contentsline {subsection}{\numberline {1.2}An\IeC {\'a}lisis de requisitos funcionales}{3}% 
 \contentsline {section}{\numberline {2}Punto de vista contextual}{3}% 
+\contentsline {section}{\numberline {3}Diagramas de clases de dise\IeC {\~n}o}{4}% 
+\contentsline {section}{\numberline {4}Memoria}{4}% 

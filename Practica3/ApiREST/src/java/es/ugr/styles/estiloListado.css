@@ -1,0 +1,58 @@
+
+body {
+ background-color: black;
+}
+
+.cabecera {
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow:auto;
+  text-align: center;
+}
+
+.titulo {
+  -webkit-text-fill-color: darkgrey;
+  -webkit-text-stroke-width: 1.3px;
+  -webkit-text-stroke-color: black;
+  font-size: 130%;
+  display: inline-block;
+  padding-top: 3%;
+  padding-bottom: 1.5%;
+}
+
+.cuerpo{
+  overflow:auto;
+  display: block;
+  float:left;
+  color:darkgrey;
+  margin-top:30px;
+  margin-bottom: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  width:80%;
+  text-align: left;
+  border-style: solid;
+  border-color: darkgrey;
+  box-sizing: border-box;
+  border-radius: 5px;
+  height:auto;
+}
+
+.cuerpo p{
+  padding-left: 2%;
+  font-size: 100%;
+}
+
+.info {
+  background-color: darkgrey;
+  width: 250px;
+  margin-left: 35%;
+  text-align: center;
+  display: block;
+}
+
+
+.test{
+  color:darkgrey;
+}

@@ -24,7 +24,7 @@
 
 \setmarginsrb{2 cm}{1 cm}{2 cm}{2 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
 
-\title{Práctica 3 - Descripción Arquitectónica\hspace{0.05cm}}
+\title{Práctica 3 - Descripción Arquitectónica\\App catálogo de videojuegos\hspace{0.05cm}}
 \author{Jose Luis Gallego Peña\\Sergio Campos Megías}
 \date{\today}                                           
 
@@ -96,29 +96,29 @@ Los desglosamos a continuación en requisitos no funcionales y funcionales, con 
 \subsection{Análisis de requisitos no funcionales}
 
 \begin{itemize}
-\item \textbf{RNF1} - El sistema web usará tecnologías REST y estará programado en el lenguaje Java.
+\item \textbf{RNF1} - El sistema web usará tecnologías REST y estará programado en el lenguaje Java con Jersey.
 
-\item \textbf{RNF2} - Se usará el servidor web que proporciona Netbeans, junto al SGBD MySQL
+\item \textbf{RNF2} - Se usará el servidor web que proporciona el IDE Netbeans con Apache Tomcat.
 
-\item \textbf{RNF3} - La aplicación estará desarrollada en Java Android usando Android Studio.
+\item \textbf{RNF3} - La aplicación estará desarrollada en Java Android usando Android Studio junto a la biblioteca Picasso.
 
 \item \textbf{RNF4} - La interfaz de la aplicación será simple e intuitiva, con pocas opciones, siguiendo los estándares Android Material Design.
 
-\item \textbf{RNF5} - La aplicación interaccionará con el servidor REST desplegado en internet.
+\item \textbf{RNF5} - La aplicación interaccionará con el servidor REST desplegado en internet usando la biblioteca Retrofit.
 
 \item \textbf{RNF6} - Permitirá únicamente el castellano, aunque podrá redirigir a páginas de cualquier idioma. Tendrá la posibilidad de añadir nuevos idiomas en el futuro.
 
-\item \textbf{RNF7} - Debe cumplir la ley de protección de datos y la privacidad del usuario.
+\item \textbf{RNF7} - Debe cumplir la ley de protección de datos y la privacidad de estos.
 \end{itemize}
 
 Además, el sistema debe mantener los siguientes criterios de calidad:
 
 \begin{itemize}
-\item \textbf{RNF8} - \textbf{Seguridad}: El sistema debe acceder de forma segura a su base de datos usando un sistema de login y contraseña, asegurando al confidencialidad de estos datos.
+\item \textbf{RNF8} - \textbf{Seguridad}: El sistema debe acceder de forma segura a los datos, asegurando al confidencialidad de estos datos.
 
 \item \textbf{RNF9} - \textbf{Fiabilidad}: El sistema deberá funcionar sin fallos y responder a las peticiones de forma rápida y correcta.
 
-\item \textbf{RNF19} - \textbf{Mantenibilidad}: El sistema deberá ser lo suficientemente simple como para poder mantenerse y usarse durante un periodo grande de tiempo, pudiendo además añadir nuevas funcionalidades con el tiempo de forma simple gracias a un buen diseño.
+\item \textbf{RNF10} - \textbf{Mantenibilidad}: El sistema deberá ser lo suficientemente simple como para poder mantenerse y usarse durante un periodo grande de tiempo, pudiendo además añadir nuevas funcionalidades con el tiempo de forma simple gracias a un buen diseño.
 \end{itemize}
 
 \subsection{Análisis de requisitos funcionales}
@@ -130,9 +130,8 @@ Además, el sistema debe mantener los siguientes criterios de calidad:
 \item \textbf{RF4} - Modificar página videojuego
 \item \textbf{RF5} - Modificar imagen videojuego
 \item \textbf{RF6} - Eliminar videojuego del catálogo
-\item \textbf{RF7} - Añadir videojuego a favoritos
-\item \textbf{RF8} - Consultar información videojuego
-\item \textbf{RF9} - Buscar videojuego
+\item \textbf{RF7} - Consultar información videojuego
+\item \textbf{RF8} - Acceder a página del videojuego
 \end{itemize}
 
 Requisitos funcionales que NO son responsabilidad del sistema:
@@ -151,7 +150,28 @@ El sistema consiste en dos grandes subsistemas:
 \item Para los mantenedores/desarrolladores: Una aplicación web que permita a los administradores acceder al catálogo para añadir nuevos videojuegos, eliminarlos o modificar datos.
 \end{itemize}
 
-\centering
+\begin{center}
 \fbox{\includegraphics[scale=0.65]{contexto.png}}
+\end{center}
+
+\section{Diagramas de clases de diseño}
+
+\begin{center}
+\fbox{\includegraphics[scale=0.26]{diagrama_app.png}}
+\end{center}
+
+\section{Memoria}
+
+Para el desarrollo de la aplicación android se optó por usar Android Studio puesto que es uno de las principales herramientas que buscábamos aprender con esta práctica. La dificultad de su uso nos ha hecho tener muchos problemas, entre ellos primeramente el crear el proyecto, ya que daba muchos errores extraños que tuvimos que solucionar mirando por internet, como por ejemplo instalar dependencias del IDE que faltaban.
+
+Gracias a las herramientas de generación automática del IDE pudimos crear la estructura básica del programa y otros métodos como getters y setters fácilmente.
+
+El IDE deja crear una plantilla de proyecto, pero nosotros la editamos fuertemente después de estar un día mirando cómo estaban conectadas las distintas clases y cual era la estructura de funcionamiento de una app android. Hasta aquí todo bien, puesto que era mirar soluciones muy fáciles en un lenguaje, Java, que ya conocemos.
+
+Sin embargo surgieron problemas al empezar a desarrollar la aplicación que queríamos, dos principalmente. El primero, con respecto a representar los datos. Usamos un tipo ListView para representar el catálogo, y esta es una estructura de datos bastante compleja de usar y que a la mínima de cambio no funciona, por lo que estuvimos bastante tiempo intentando conseguir que se mostrase lo que queríamos y de la forma que queríamos, teniendo que tocar los archivos XML de la interfaz gráfica ya que con el asistente no podíamos.
+
+El segundo y mayor problema fue conectar la aplicación a un servicio API Rest ya que hay que realizar muchos pasos. En el archivo manifiesto de android hay que especificar que la app se conecta a internet, pero además es que hay muchas formas de resolver esto y todas muy complejas. Nos decidimos por aprender a usar la biblioteca Retrofit porque parecía la mejor opción, y lo es, sin embargo estuvimos un día entero para solucionar la conexión ya que nos daba error debido a que al tener un servicio en localhost, no se puede usar el DNS "localhost" si no que hay que usar una IP especial: 10.0.2.2. Además de esto, fue difícil porque esta biblioteca requiere crear una nueva clase, Post, en la que almacenar exactamente (mismo nombre y tipo) los datos que recibiremos de un JSON de la API Rest.
+
+En general, Android Studio es un IDE bastante complejo de usar, con muchísimas particularidades, y sobre todo, el mayor problema que tiene es que está fatal optimizado y tarda muchísimo en compilar y funcionar fluidamente todo. Hemos llegado a tener que reiniciar el ordenador mas de 5 veces.
 
 \end{document}

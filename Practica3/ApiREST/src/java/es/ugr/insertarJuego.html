@@ -1,0 +1,29 @@
+
+
+<html>
+  <head>
+    <link rel="stylesheet" href="styles/estiloInsertarJuego.css">
+  </head>
+  <body>
+    <div class="cabecera">
+      <div class="titulo">
+        <h1>Administradores</h1>
+      </div>
+    </div>
+
+    <form action="http://localhost:8084/PracticaFinal/api/hello/insertGame" method="POST" class='furmulario'>
+      <label for=name class='etiquetas'>Nombre</label>
+      <input type="text" name="name" value='' class='info'/><br>
+      <label for=precio class='etiquetas'>Precio</label>
+      <input type="text" name="precio" value='' class='info' /><br>
+      <label for=link class='etiquetas'>Link</label>
+      <input type="text" name="link" value='' class='info' /><br>
+      <label for=img class='etiquetas'>Imagen</label>
+      <input type="text" name="img" value='' class='info' /><br>
+      <label for=desc class='etiquetas'>Descripcion</label>
+      <input type="text" name="desc" value='' class='infoGrande' /><br>
+      <input type="submit" value="OK" class='info'/><br>
+    </form>
+
+  </body>
+</html>

@@ -1,0 +1,42 @@
+
+<html>
+  <head>
+    <link rel="stylesheet" href="styles/estiloListado.css">
+    <title> Listado juegos </title>
+    <meta charset="UTF-8">
+    <script>
+      var baseurl = "http://localhost:8084/PracticaFinal/api/hello/getAllGames";
+      function loadGames(){
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.open("GET",baseurl,true);
+        xmlhttp.onreadystatechange = function() {
+          if(xmlhttp.readyState ===4 && xmlhttp.status ===200){
+            var games = JSON.parse(xmlhttp.responseText);
+            var main ="";
+            for (i = 0; i < games.length; i++){
+              main += "<div class=cuerpo><p> Nombre del juego: "+
+              games[i].name+"</p><p> Precio del juego: "
+              +games[i].precio.toString()+
+              "$</p><p> Link del juego: "+games[i].link+
+              "</p><p> Link imagen: "+games[i].img+"</p><p> Descripcion del juego: "
+              +games[i].desc+"</p><form action=http://localhost:8084/PracticaFinal/api/hello/deleteGame method=POST><input type=hidden name=name value="+games[i].name+" ><br><input type=submit value=Borrar class=info><br></form></div>";
+            }
+            document.getElementById("personinfo").innerHTML = main;
+          }
+        };
+        xmlhttp.send();
+      }
+      window.onload = function(){
+        loadGames();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="cabecera">
+      <div class="titulo">
+        <h1>Administradores</h1>
+      </div>
+    </div>
+    <div id="personinfo"></div>
+  </body>
+</html>
